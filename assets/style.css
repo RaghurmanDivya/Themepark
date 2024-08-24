@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Josefin Sans', sans-serif;
+    color: black;
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+    background: transparent;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("C:/Users/Divya/Desktop/Theme park/images/bg2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 0.8; /* Set the opacity of the background image */
+    z-index: -1; /* Ensure the background is behind the content */
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 80%;
+    max-width: 1200px;
+    z-index: 1; /* Ensure the content is above the background */
+}
+
+.box {
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient background */
+    padding: 20px;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.box:nth-child(7) {
+    flex: 1 1 calc(33.333% - 20px); /* Ensure the last box is the same size */
+    max-width: calc(33.333% - 20px); /* Prevent it from stretching */
+    align-self: flex-start; /* Align to the top of the row */
+}
+
+.box:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.4s ease;
+}
+
+.box:hover img {
+    transform: scale(1.1);
+}
+
+.box p {
+    margin: 15px 0;
+    font-size: 30px; /* Adjusted to match other text sizes */
+    font-weight: 1000px;
+    color: black;
+}
+
+.box button {
+    padding: 12px 25px;
+    background-color: #ff5f6d;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.4s ease, transform 0.4s ease;
+}
+
+.box button:hover {
+    background-color: black;
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+.container1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 80%;
+    max-width: 1200px;
+    z-index: 1; 
+    
+}
+
+/* Styling for individual ride blocks */
+.ride {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    background-color: rgb(11, 11, 11); /* Semi-transparent background for readability */
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0; /* Start with hidden opacity for animation */
+    transform: translateX(-100px); /* Start position for animation */
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.ride img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px 0 0 10px;
+}
+
+.ride .content {
+    padding: 20px;
+    flex: 1;
+}
+.ride h1{
+    margin-top: 0px;
+    text-align: center;
+    font-size: large;
+    font-family: 'Josefin Sans', sans-serif;
+    border-color: aliceblue;
+}
+
+.ride h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: white;
+}
+
+.ride p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: white;
+}
+.ride:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Slightly lighter background */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.8); /* Increase shadow on hover */
+    transform: translateX(0);
+    
+}
+
+.ride:nth-child(1) {
+    transition-delay: 0.2s;
+}
+
+.ride:nth-child(2) {
+    transition-delay: 0.4s;
+}
+
+.ride:nth-child(3) {
+    transition-delay: 0.6s;
+}
+
+.ride:nth-child(4) {
+    transition-delay: 0.8s;
+}
+
+.ride.visible {
+    opacity: 1;
+    transform: translateX(0);
+} 
