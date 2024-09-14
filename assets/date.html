@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Visit</title>
+    
+    <!-- Include Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:#fceabb;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: slideInTop 1s forwards;
+        }
+
+        .center-logo {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: slideInTop 1s forwards 0.3s;
+        }
+
+        .step {
+            padding: 10px 15px;
+            background-color: #E0E0E0;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 80px;
+            transition: background-color 0.3s ease;
+        }
+
+        .step.active {
+            background-color: #00A676;
+            color: white;
+        }
+
+        .connector {
+            width: 40px;
+            height: 4px;
+            background-color: #E0E0E0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; /* Center the container horizontally */
+            padding: 20px;
+        }
+
+        .left-section {
+            width: 50%;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 1s forwards 0.6s;
+        }
+
+        .right-section {
+            width: 45%;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 1s forwards 0.6s;
+        }
+
+        .right-section h3{
+            margin-left: 250px;
+        }
+
+        .right-section .calendar{
+            margin-left: 200px;
+        }
+
+        .confirm-btn, .cancel-btn {
+            width: 48%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .confirm-btn {
+            background-color: #004BA8;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            background-color: #003577;
+        }
+
+        .cancel-btn {
+            background-color: #CCCCCC;
+            color: black;
+        }
+
+        .cancel-btn:hover {
+            background-color: #999999;
+        }
+
+        .calendar {
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 1px solid #ddd; /* Border for table */
+            border-radius: 10px;
+            overflow: hidden; /* To apply rounded corners */
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center; /* Center the text */
+            border-bottom: 1px solid #ddd;
+            font-weight: bold; /* Make text bold */
+        }
+
+        th {
+            /* Matching gradient color */
+            color: black;
+            text-align: center;
+            margin-left: 50px;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .table-container {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+
+        .table-container h3 {
+            background-color: #fceabb; /* Matching gradient color */
+            color: black;
+            padding: 10px;
+            margin: 0;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes slideInTop {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <img src="C:\Users\Divya\Desktop\Themepark\assets\images\logo.png" alt="Logo" class="center-logo">
+        <div class="progress-bar">
+            <div class="step" id="step-date">Date</div>
+            <div class="connector"></div>
+            <div class="step" id="step-tickets">Tickets</div>
+            <div class="connector"></div>
+            <div class="step" id="step-addons">Add-ons</div>
+            <div class="connector"></div>
+            <div class="step" id="step-rules">Rules</div>
+            <div class="connector"></div>
+            <div class="step" id="step-billing">Billing</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="left-section">
+            <div class="table-container">
+                <h3>Plan your Visit</h3>
+                <p>Prepare for 7 hours of continuous enjoyment, with exhilarating ups and downs and fantastic thrills at every turn! Brace yourself to be blown away by the incredible rides that lie ahead!</p>
+                <h3>Hours of Fun</h3>
+                <table>
+                    <tr>
+                        <th>Park Timings</th>
+                    </tr>
+                    <tr>
+                        <td>Weekdays</td>
+                        <td>10:00 AM - 06:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Weekends & Holidays</td>
+                        <td>9:30 AM - 07:00 PM</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <h3>Select a Date</h3>
+            <div class="calendar">
+                <!-- Flatpickr Calendar with inline view -->
+                <input type="text" id="booking-date">
+            </div>
+            <div class="button-container">
+                <button class="cancel-btn" onclick="cancel()">Cancel</button>
+                <button class="confirm-btn" onclick="proceed()">Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.getElementById('step-date').classList.add('active');
+        // Initialize Flatpickr with options
+        flatpickr("#booking-date", {
+            inline: true, // Display the calendar inline
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            onReady: function(selectedDates, dateStr, instance) {
+                const today = new Date();
+                today.setDate(today.getDate() + 1);
+                instance.setDate(today, false); // Set default to tomorrow
+            }
+        });
+
+        function proceed() {
+            const dateInput = document.getElementById('booking-date').value;
+            if (!dateInput) {
+                alert("Please select a date before proceeding.");
+            } else {
+                document.getElementById('step-date').classList.add('active');
+                console.log("Proceeding with date:", dateInput);
+                window.location.href = 'ticket.html'; // Redirect to ticket.html
+            }
+        }
+
+        function cancel() {
+            // Clear the selected date and reset the form
+            document.getElementById('booking-date').value = "";
+            console.log("Selection cancelled");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add-ons</title>
+    
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:#fceabb;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            background-color: #fceabb;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index: 1000;
+            background-color:#fceabb;
+        }
+
+        .header-content {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .center-logo {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            padding: 10px 15px;
+            background-color: #E0E0E0;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 80px;
+            transition: background-color 0.3s ease;
+        }
+
+        .step.active {
+            background-color: #00A676;
+            color: white;
+        }
+
+        .connector {
+            width: 40px;
+            height: 4px;
+            background-color: #E0E0E0;
+        }
+
+        .content {
+            position: fixed; /* Fix the container in place */
+            top: 170px; /* Adjust top to ensure space for header and progress bar */
+            left: 50%;
+            transform: translateX(-50%); /* Center horizontally */
+            background-color: #FFFFFF;
+            border-radius: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 50%;
+            max-height: 70vh;
+            overflow-y: auto; /* Enable vertical scrolling */
+            z-index: 999; /* Ensure it is above other content */
+        }
+
+        .add-on-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+        }
+
+        .add-on-container img {
+            width: 250px;
+            height: 130px;
+            margin-right: 10px;
+        }
+
+        .count-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 40%;
+        }
+
+        .count-container button {
+            border: none;
+            background-color: #E0E0E0;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .count-container button:hover {
+            background-color: #CCCCCC;
+        }
+
+        .count {
+            font-size: 24px;
+            margin: 0 10px;
+        }
+
+        .total-price {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Center the button horizontally */
+        }
+
+        .proceed-btn {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 14px;
+            background-color: #004BA8;
+            color: white;
+        }
+
+        .proceed-btn:hover {
+            background-color: #003577;
+        }
+
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="C:\Users\Divya\Desktop\Themepark\assets\images\logo.png" alt="Logo" class="center-logo">
+            <div class="progress-bar">
+                <div class="step" id="step-date">Date</div>
+                <div class="connector"></div>
+                <div class="step" id="step-tickets">Tickets</div>
+                <div class="connector"></div>
+                <div class="step active" id="step-addons">Add-ons</div>
+                <div class="connector"></div>
+                <div class="step" id="step-rules">Rules</div>
+                <div class="connector"></div>
+                <div class="step" id="step-billing">Billing</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <h2>Plan your Meal</h2>
+
+        <div class="add-on-container">
+            <img src="C:\Users\Divya\Desktop\Themepark\assets\images\addon1.jpeg" alt="Buffet">
+            <div>
+                <h3>Buffet (Adult) Rs.399</h3>
+                <div class="count-container">
+                    <button onclick="decrease('buffet')">-</button>
+                    <span id="buffet-count" class="count">0</span>
+                    <button onclick="increase('buffet')">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-on-container">
+            <img src="C:\Users\Divya\Desktop\Themepark\assets\images\addon3.jpeg" alt="Drinks">
+            <div>
+                <h3>Buffet (child) Rs.299</h3>
+                <div class="count-container">
+                    <button onclick="decrease('drinks')">-</button>
+                    <span id="drinks-count" class="count">0</span>
+                    <button onclick="increase('drinks')">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-on-container">
+            <img src="C:\Users\Divya\Desktop\Themepark\assets\images\addon4.jpeg" alt="Snacks">
+            <div>
+                <h3>Snacks (Adult) Rs.149</h3>
+                <div class="count-container">
+                    <button onclick="decrease('snacks')">-</button>
+                    <span id="snacks-count" class="count">0</span>
+                    <button onclick="increase('snacks')">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-on-container">
+            <img src="C:\Users\Divya\Desktop\Themepark\assets\images\addon2.jpeg" alt="Special Access">
+            <div>
+                <h3>Lunch | Snacks Rs.599</h3>
+                <div class="count-container">
+                    <button onclick="decrease('special_access')">-</button>
+                    <span id="special_access-count" class="count">0</span>
+                    <button onclick="increase('special_access')">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="total-price">
+            Total Price: <span id="total-price">0</span>
+        </div>
+        <br>
+        <p style="margin-left: 200px;">You can skip this and proceed if you dont won't the meal</p>
+
+        <div class="button-container">
+            <button class="proceed-btn" onclick="proceed()">Proceed</button>
+        </div>
+    </div>
+    
+
+    <script>
+         document.getElementById('step-date').classList.add('active');
+                
+                // Add 'active' class to next step
+                document.getElementById('step-tickets').classList.add('active');
+        const prices = {
+            buffet: 399,
+            drinks: 299,
+            snacks: 149,
+            special_access: 599
+        };
+
+        function updateTotal() {
+            const buffet = parseInt(document.getElementById('buffet-count').textContent);
+            const drinks = parseInt(document.getElementById('drinks-count').textContent);
+            const snacks = parseInt(document.getElementById('snacks-count').textContent);
+            const special_access = parseInt(document.getElementById('special_access-count').textContent);
+
+            const total = (buffet * prices.buffet) + (drinks * prices.drinks) + (snacks * prices.snacks) + (special_access * prices.special_access);
+            document.getElementById('total-price').textContent = total;
+        }
+
+        function increase(type) {
+            const countElement = document.getElementById(`${type}-count`);
+            countElement.textContent = parseInt(countElement.textContent) + 1;
+            updateTotal();
+        }
+
+        function decrease(type) {
+            const countElement = document.getElementById(`${type}-count`);
+            const currentCount = parseInt(countElement.textContent);
+            if (currentCount > 0) {
+                countElement.textContent = currentCount - 1;
+                updateTotal();
+            }
+        }
+
+        function proceed() {
+    // Store selected data in sessionStorage
+    sessionStorage.setItem('buffetCount', document.getElementById('buffet-count').textContent);
+    sessionStorage.setItem('drinksCount', document.getElementById('drinks-count').textContent);
+    sessionStorage.setItem('snacksCount', document.getElementById('snacks-count').textContent);
+    sessionStorage.setItem('specialAccessCount', document.getElementById('special_access-count').textContent);
+
+    // Redirect to Billing page
+    window.location.href = "rules.html";
+}
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules to be Followed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:#fceabb;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: slideInTop 1s forwards;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .center-logo {
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: slideInTop 1s forwards 0.3s;
+        }
+
+        .step {
+            padding: 10px 15px;
+            background-color: #E0E0E0;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 80px;
+            transition: background-color 0.3s ease;
+        }
+
+        .step.active {
+            background-color: #00A676;
+            color: white;
+        }
+
+        .connector {
+            width: 40px;
+            height: 4px;
+            background-color: #E0E0E0;
+        }
+
+        .rules-container {
+            width: 30%;
+            background-color: #FFFFFF;
+            margin: 210px auto 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .rule {
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .rule h3 {
+            margin: 0;
+            font-size: 18px;
+            background-color: #E0E0E0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rule-content {
+            margin-top: 10px;
+            padding: 10px;
+            border-left: 3px solid #00A676;
+            display: none;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .rule-content p {
+            margin: 5px 0;
+        }
+
+        .icon {
+            transition: transform 0.3s ease;
+        }
+
+        .open .icon {
+            transform: rotate(180deg);
+        }
+
+        .agree-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto 0 auto;
+            padding: 10px;
+            background-color: #00A676;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .agree-button:hover {
+            background-color: #007f57;
+        }
+
+        /* Animations */
+        @keyframes slideInTop {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="C:\Users\Divya\Desktop\Themepark\assets\images\logo.png" alt="Logo" class="center-logo">
+        <div class="progress-bar">
+            <div class="step" id="step-date">Date</div>
+            <div class="connector"></div>
+            <div class="step" id="step-tickets">Tickets</div>
+            <div class="connector"></div>
+            <div class="step" id="step-addons">Add-ons</div>
+            <div class="connector"></div>
+            <div class="step active" id="step-rules">Rules</div>
+            <div class="connector"></div>
+            <div class="step" id="step-billing">Billing</div>
+        </div>
+    </header>
+
+    <div class="rules-container">
+        <h2>Rules to be Followed</h2>
+
+        <div class="rule" onclick="toggleRule('dress-code')">
+            <h3>Dress Code <i class="fa fa-chevron-down icon"></i></h3>
+            <div id="dress-code" class="rule-content">
+                <p>- Only nylon and synthetic clothes are allowed into the rides.</p>
+                <p>- You can either purchase the dress at our park.</p>
+            </div>
+        </div>
+
+        <div class="rule" onclick="toggleRule('terms-conditions')">
+            <h3>Terms and Conditions <i class="fa fa-chevron-down icon"></i></h3>
+            <div id="terms-conditions" class="rule-content">
+                <p>- Take care of your own belongings.</p>
+                <p>- We have provided lockers for your belongings.</p>
+            </div>
+        </div>
+
+        <button class="agree-button" onclick="proceed()">Agree and Continue</button>
+    </div>
+
+    <script>
+        document.getElementById('step-date').classList.add('active');
+        document.getElementById('step-tickets').classList.add('active');
+        document.getElementById('step-addons').classList.add('active');
+        function toggleRule(ruleId) {
+            const content = document.getElementById(ruleId);
+            const icon = content.previousElementSibling.querySelector('.icon');
+            content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
+            icon.classList.toggle('open');
+        }
+
+        function proceed() {
+            alert("You have agreed to the rules and will proceed to the next step.");
+            // Redirect to the next page
+            window.location.href = "billing.html"; // Replace with the actual next page URL
+        }
+    </script>
+</body>
+</html>
