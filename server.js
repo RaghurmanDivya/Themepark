@@ -1,6 +1,7 @@
 require('dotenv').config(); // Add this to use .env variables
 const express = require('express');
 const mysql = require('mysql2');
+const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 
@@ -36,4 +37,23 @@ db.connect(err => {
 // Serve the login.html file when accessing the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'assets', 'index.html'));
+});
+
+// API to insert billing record
+app.post('/billing', (req, res) => {
+    const { adultsCount, childrenCount, seniorsCount, buffetCount, drinksCount, snacksCount, specialAccessCount, totalPrice, name, email, phonenum, billingStatus } = req.body;
+
+    const sql = `
+        INSERT INTO billing (adultsCount, childrenCount, seniorsCount, buffetCount, drinksCount, snacksCount, specialAccessCount, totalPrice, name, email, phonenum, billingStatus)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.query(sql, [adultsCount, childrenCount, seniorsCount, buffetCount, drinksCount, snacksCount, specialAccessCount, totalPrice, name, email, phonenum, billingStatus], (err, result) => {
+        if (err) {
+            console.error('Error inserting record:', err);
+            res.status(500).json({ message: 'Error inserting record' });
+        } else {
+            res.status(200).json({ message: 'Record inserted successfully', data: result });
+        }
+    });
 });

@@ -259,6 +259,7 @@
         const drinksPrice = drinksCount * 299;
         const snacksPrice = snacksCount * 149;
         const specialAccessPrice = specialAccessCount * 599;
+        const billingStatus = "Not Paid";
 
         // Calculate total price
         const totalPrice = adultsPrice + childrenPrice + seniorsPrice + buffetPrice + drinksPrice + snacksPrice + specialAccessPrice;
@@ -276,7 +277,7 @@
         function validateForm() {
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
+            const phonenum = document.getElementById('phone').value;
             const errorMessage = document.getElementById('error-message');
             errorMessage.textContent = '';
 
@@ -285,9 +286,55 @@
                 return;
             }
 
-            // Show QR code container
-            const qrCodeContainer = document.getElementById('qr-code-container');
-            qrCodeContainer.style.display = 'flex';
+              // Capture ticket and add-on counts
+           // const adults = sessionStorage.getItem('adultsCount') || 0;
+           // const children = sessionStorage.getItem('childrenCount') || 0;
+           // const seniors = sessionStorage.getItem('seniorsCount') || 0;
+           // const buffet = sessionStorage.getItem('buffetCount') || 0;
+          //  const drinks = sessionStorage.getItem('drinksCount') || 0;
+          //  const snacks = sessionStorage.getItem('snacksCount') || 0;
+          //  const specialAccess = sessionStorage.getItem('specialAccessCount') || 0;
+
+            // Calculate total price
+           // const totalPrice = adults * 1299 + children * 799 + seniors * 699 + buffet * 399 + drinks * 299 + snacks * 149 + specialAccess * 599;
+          //  const billingStatus = "Not Paid";
+
+            // Send data to the backend API
+            fetch('/billing', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    adultsCount,
+                    childrenCount,
+                    seniorsCount,
+                    buffetCount,
+                    drinksCount,
+                    snacksCount,
+                    specialAccessCount,
+                    totalPrice,
+                    name,
+                    email,
+                    phonenum,
+                    billingStatus,
+                 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Record inserted successfully') {
+                    alert("Billing information saved. Proceed with payment.");
+                    // Show QR code container
+                    const qrCodeContainer = document.getElementById('qr-code-container');
+                    qrCodeContainer.style.display = 'flex';
+                } else {
+                    alert('Failed to save billing information');
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+            });
+
         }
 
         function closeQRCode() {
