@@ -57,3 +57,22 @@ app.post('/billing', (req, res) => {
         }
     });
 });
+
+// POST API to insert data into the help table
+app.post('/help', (req, res) => {
+    const { issue, email, rating } = req.body;
+
+    // Check if the required fields are present
+    if (!issue || !email || !rating) {
+        return res.status(400).json({ error: 'Issue, email, and rating are required.' });
+    }
+
+    // Insert the data into the help table
+    const query = 'INSERT INTO help (issue, email, rating) VALUES (?, ?, ?)';
+    db.query(query, [issue, email, rating], (err, result) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database error occurred.' });
+        }
+        res.status(201).json({ message: 'Record inserted successfully', id: result.insertId });
+    });
+});
