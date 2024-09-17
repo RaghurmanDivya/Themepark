@@ -174,7 +174,7 @@
 <body>
     <header>
         <div class="header-content">
-            <img src="C:\Users\Divya\Desktop\Themepark\assets\images\logo.png" alt="Logo" class="center-logo">
+            <img src="images\logo.png" alt="Logo" class="center-logo">
         </div>
     </header>
 
@@ -213,6 +213,9 @@
         const ratingMessage = document.getElementById('rating-message');
         const ratingPopup = document.getElementById('ratingPopup');
         const overlay = document.getElementById('overlay');
+        let issue = '';
+        let email = '';
+
         let selectedRating = 0;
 
         stars.forEach(star => {
@@ -256,8 +259,8 @@
         }
 
         function validateForm() {
-            const issue = document.getElementById('issue').value;
-            const email = document.getElementById('email').value;
+            issue = document.getElementById('issue').value;
+            email = document.getElementById('email').value;
             const errorMessage = document.getElementById('error-message');
             errorMessage.textContent = '';
 
@@ -277,30 +280,30 @@
                 return;
             }
 
-            alert("Your feedback and rating have been submitted. Thank you!");
-            overlay.style.display = 'none';
-            ratingPopup.style.display = 'none';
-            const formData = new FormData();
-    formData.append('issue', document.getElementById('issue').value);
-    formData.append('email', document.getElementById('email').value);
-    formData.append('rating', selectedRating);
+            const formData = {
+                issue: issue,
+                email: email,
+                rating: selectedRating
+            };
 
-    // Send data to the server
-    fetch('submit_feedback.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        alert(data);
-        overlay.style.display = 'none';
-        ratingPopup.style.display = 'none';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-            // Add code here to handle the form and rating submission, like sending data to a server.
+            fetch('/help', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert('Your feedback and rating have been submitted. Thank you!');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     </script>
 </body>
